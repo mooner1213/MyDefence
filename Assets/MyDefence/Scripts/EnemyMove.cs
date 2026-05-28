@@ -8,7 +8,7 @@ namespace MyDefence
         private Transform targetTransform;
 
         // 이동 속도 (숫자를 바꾸면 더 빨라지거나 느려져!)
-        public float speed = 3.0f;
+        public float speed = 5.0f;
 
         void Start()
         {

@@ -10,7 +10,7 @@ namespace MySample
         public GameObject prefab;
 
         // 타이머 변수 선언 - 2개(누적 변수, 간격 변수)
-        private float countdown = 0f; // 시간(Time.deltaTime) 누적 변수
+        // private float countdown = 0f; // 시간(Time.deltaTime) 누적 변수
         public float tileTimer = 1f; // 타이머 기준 시간
         #endregion
 
