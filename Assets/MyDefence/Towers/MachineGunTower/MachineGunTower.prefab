@@ -213,6 +213,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5816594813477904553}
+  - {fileID: 8597278170922012318}
   m_Father: {fileID: 5844167488971287091}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1225767089303631087
@@ -301,7 +302,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8597278170922012318}
   - {fileID: 1511837977791025855}
   m_Father: {fileID: 1679729324373113739}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -404,6 +404,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1679729324373113739}
+  - component: {fileID: -9075468530656904993}
   m_Layer: 10
   m_Name: MachineGunTower
   m_TagString: Untagged
@@ -428,6 +429,22 @@ Transform:
   - {fileID: 5844167488971287091}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-9075468530656904993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8466087912286344130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed6512ede1a879b4190db8b8785dcd34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MyDefence.MachinGunTower
+  rotateSpeed: 30
+  attackRange: 7
+  head: {fileID: 0}
+  angleOffset: 0
 --- !u!1 &9054584260256141645
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,5 +474,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5844167488971287091}
+  m_Father: {fileID: 1511837977791025855}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

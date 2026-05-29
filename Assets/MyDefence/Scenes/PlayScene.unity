@@ -432,27 +432,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5045456067164152179, guid: 250cb461e7c6c4e47aea8bb80fc55a62, type: 3}
   m_PrefabInstance: {fileID: 345387870}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &347107468 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8466087912286344130, guid: af54a06ffe503b1408121ccaa9246ac6, type: 3}
-  m_PrefabInstance: {fileID: 1325876015}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &347107469
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 347107468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed6512ede1a879b4190db8b8785dcd34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MachinGunTower
-  rotateSpeed: 5
-  attackRange: 7
-  head: {fileID: 999885643}
-  angleOffset: 90
 --- !u!1 &369721314
 GameObject:
   m_ObjectHideFlags: 0
@@ -590,6 +569,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 369721314}
   m_CullTransparentMesh: 1
+--- !u!4 &505072718 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8597278170922012318, guid: af54a06ffe503b1408121ccaa9246ac6, type: 3}
+  m_PrefabInstance: {fileID: 1325876015}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &680450232
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -764,11 +748,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 765551118}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &999885643 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5844167488971287091, guid: af54a06ffe503b1408121ccaa9246ac6, type: 3}
-  m_PrefabInstance: {fileID: 1325876015}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1014077996
 GameObject:
   m_ObjectHideFlags: 0
@@ -1148,14 +1127,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 91887739051146163, guid: af54a06ffe503b1408121ccaa9246ac6, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 845655564343222299, guid: af54a06ffe503b1408121ccaa9246ac6, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
+    - target: {fileID: 573267010958175311, guid: af54a06ffe503b1408121ccaa9246ac6, type: 3}
+      propertyPath: firePoint
+      value: 
+      objectReference: {fileID: 505072718}
+    - target: {fileID: 573267010958175311, guid: af54a06ffe503b1408121ccaa9246ac6, type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 7040233188080328066, guid: b2fdbfd0619e4fc43985c7fdcc99953a, type: 3}
     - target: {fileID: 1679729324373113739, guid: af54a06ffe503b1408121ccaa9246ac6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.38
@@ -1196,26 +1175,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5844167488971287091, guid: af54a06ffe503b1408121ccaa9246ac6, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5844167488971287091, guid: af54a06ffe503b1408121ccaa9246ac6, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5844167488971287091, guid: af54a06ffe503b1408121ccaa9246ac6, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5844167488971287091, guid: af54a06ffe503b1408121ccaa9246ac6, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5844167488971287091, guid: af54a06ffe503b1408121ccaa9246ac6, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8466087912286344130, guid: af54a06ffe503b1408121ccaa9246ac6, type: 3}
       propertyPath: m_Name
       value: MachineGunTower
@@ -1223,10 +1182,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8466087912286344130, guid: af54a06ffe503b1408121ccaa9246ac6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 347107469}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: af54a06ffe503b1408121ccaa9246ac6, type: 3}
 --- !u!1001 &1347122866
 PrefabInstance:
