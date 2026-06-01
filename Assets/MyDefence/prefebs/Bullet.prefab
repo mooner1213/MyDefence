@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MyDefence.Bullet
   speed: 70
+  hitEffectPrefab: {fileID: 2155170620865548737, guid: 5c8d603406541694785cff0b85904f37, type: 3}
 --- !u!1 &8371175623619567201
 GameObject:
   m_ObjectHideFlags: 0

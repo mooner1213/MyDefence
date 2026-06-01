@@ -7,6 +7,8 @@ namespace MyDefence
         #region Variables
         private Transform target; // 타워가 지정해 준 날아갈 목표(적)의 위치 바구니 (과제 3-1)
         public float speed = 70f; // 탄환의 날아가는 이동 속도 (과제 3-2 조건: 70)
+
+        public GameObject hitEffectPrefab;
         #endregion
 
         #region Unity Event Method
@@ -42,10 +44,20 @@ namespace MyDefence
         // 적에게 완벽하게 부딪혔을 때 실행되는 함수입니다.
         private void HitTarget()
         {
-            Debug.Log("Hit Target!!!"); // 과제 3-3 조건: 콘솔창 로그 찍기
+            Debug.Log("Hit Target!!!");
 
-            Destroy(target.gameObject); // 과제 3-3 조건: 타겟 게임 오브젝트를 파괴합니다 (Kill).
-            Destroy(gameObject);        // 과제 3-3 조건: 탄환 자신도 파괴합니다 (Kill).
+            // ---- [과제 4번: 적 사망 시 도트 흩날림 이펙트 생성] ----
+            if (hitEffectPrefab != null)
+            {
+                // 중요: 총알 위치가 아니라 '적의 위치(target.position)'에 도트 이펙트를 생성합니다!
+                GameObject deathEffectGO = Instantiate(hitEffectPrefab, target.position, target.rotation);
+
+                // 생성된 도트 이펙트는 2초 뒤에 하이러키 창에서 깔끔하게 삭제합니다.
+                Destroy(deathEffectGO, 2f);
+            }
+
+            Destroy(target.gameObject); // 적 파괴
+            Destroy(gameObject);        // 총알 파괴
         }
         #endregion
     }

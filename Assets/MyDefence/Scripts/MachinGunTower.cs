@@ -18,6 +18,8 @@ namespace MyDefence
         public Transform firePoint;     // 총알이 복사되어 나올 총구 위치 (과제 2-1)
         public float fireRate = 1f;     // 1초에 몇 번 쏠 것인가? (과제 1: 1초마다 1발)
         private float fireCountdown = 0f; // 다음 발사까지 남은 시간을 재는 모래시계 스톱워치
+
+        public ParticleSystem muzzleFlash; // 총구이펙트
         #endregion
 
         #region Unity Event Method
@@ -56,6 +58,14 @@ namespace MyDefence
         private void Shoot()
         {
             Debug.Log("Shoot!!!!!"); // 과제 1번 조건: 콘솔창에 로그 찍기
+
+            // ---- [핵심 추가] 총을 쏠 때마다 총구 파티클을 재생(Play)합니다! ----
+            if (muzzleFlash != null) // 이펙트가 연결되어 있다면?
+            {
+                // 파티클 시스템이 재생 중이라면 멈추고, 처음부터 다시 팍 재생합니다.
+                muzzleFlash.Stop();
+                muzzleFlash.Play();
+            }
 
             // 과제 2-3번 조건: Instantiate를 이용해 총구(firePoint)의 위치와 회전값으로 총알 복사본을 생성합니다!
             GameObject bulletGO = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
