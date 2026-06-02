@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 653659138507320236}
   - component: {fileID: -7662800396344880777}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Tile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -125,3 +125,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60d39528dd4a99941a74ea714cc9ed19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Field
+  EndColor: {r: 0.36320752, g: 1, b: 0.36320752, a: 1}
+  turretPrefab: {fileID: 8466087912286344130, guid: af54a06ffe503b1408121ccaa9246ac6, type: 3}
