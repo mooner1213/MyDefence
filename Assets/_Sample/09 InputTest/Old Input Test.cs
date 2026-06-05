@@ -11,7 +11,7 @@ namespace MySample
         #endregion
 
         #region Unity Event Method
-        private void Update()
+        /*private void Update()
         {
             // 키 입력 체크 - w키 입력
             if (Input.GetKey("w"))
@@ -59,7 +59,7 @@ namespace MySample
             float mouseX = Input.mousePosition.x;
             float mouseY = Input.mousePosition.y;
             Debug.Log($"Mouse Position : ({mouseX}, {mouseY})");
-        }
+        }*/
         #endregion
     }
 }
