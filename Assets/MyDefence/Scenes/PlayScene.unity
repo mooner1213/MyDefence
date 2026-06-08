@@ -1607,7 +1607,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 03afc90d69e84cb4d8eea3abff660616, type: 2}
+  - {fileID: 2100000, guid: 67a116be90cbc38448395279bfd686ef, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1731,7 +1731,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 765551119}
-  - {fileID: 1656101810}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1347122866
@@ -2244,12 +2243,12 @@ Transform:
   m_GameObject: {fileID: 1656101809}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.0500002, z: -25.26}
+  m_LocalPosition: {x: 5.38, y: 4.95, z: -17.26}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1188004738}
-  m_Father: {fileID: 1295684365}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1669782086
 GameObject:
@@ -2778,7 +2777,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MyDefence.BuildManager
   TurretPrefab: {fileID: 8466087912286344130, guid: af54a06ffe503b1408121ccaa9246ac6, type: 3}
-  AnotherTowerPrefab: {fileID: 8466087912286344130, guid: af54a06ffe503b1408121ccaa9246ac6, type: 3}
+  AnotherTowerPrefab: {fileID: 4694737898548666643, guid: 7daed867491c54d4b9fff6e658a698a9, type: 3}
 --- !u!4 &2021312394
 Transform:
   m_ObjectHideFlags: 0
@@ -2906,6 +2905,7 @@ SceneRoots:
   - {fileID: 1605797326}
   - {fileID: 2140704665}
   - {fileID: 1295684365}
+  - {fileID: 1656101810}
   - {fileID: 1014078000}
   - {fileID: 1846079846}
   - {fileID: 2021312394}
