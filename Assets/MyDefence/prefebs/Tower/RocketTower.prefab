@@ -142,7 +142,7 @@ MonoBehaviour:
   missilePrefab: {fileID: 1621466829439928754, guid: b0cbabf6d6e12974699fc2d924bda9f6, type: 3}
   firePoint: {fileID: 3413394791558713155}
   partToRotate: {fileID: 5465606340934674752}
-  turnSpeed: 30
+  turnSpeed: 50
   muzzleFlashPrefab: {fileID: 2255903331673014392, guid: 1d1abf9e01054a14fb9aab53aefed1de, type: 3}
 --- !u!1 &5069385814104716395
 GameObject:

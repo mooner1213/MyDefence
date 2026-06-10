@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1847310656302943009}
   - component: {fileID: 2846982047515848944}
   - component: {fileID: -7071236150024824432}
+  - component: {fileID: 8998959942523882379}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -126,3 +127,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMove
   speed: 3
+--- !u!114 &8998959942523882379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3023845799476946198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62fc1215daa520e4f82bb4e13be759e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MyDefence.Enemy
+  hp: 100
+  deathEffectPrefab: {fileID: 2155170620865548737, guid: 5c8d603406541694785cff0b85904f37, type: 3}
