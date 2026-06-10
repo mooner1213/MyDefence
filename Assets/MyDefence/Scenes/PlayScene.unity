@@ -832,7 +832,7 @@ GameObject:
   - component: {fileID: 819728767}
   - component: {fileID: 819728766}
   m_Layer: 5
-  m_Name: Raser
+  m_Name: Laser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3058,8 +3058,8 @@ MonoBehaviour:
     prefab: {fileID: 4694737898548666643, guid: 7daed867491c54d4b9fff6e658a698a9, type: 3}
     cost: 250
   laserTowerBlueprint:
-    prefab: {fileID: 0}
-    cost: 0
+    prefab: {fileID: 1161251386251526, guid: 08f095d236340b14bb4e033277a9dd6e, type: 3}
+    cost: 350
 --- !u!4 &2021312394
 Transform:
   m_ObjectHideFlags: 0
