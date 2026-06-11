@@ -4,29 +4,62 @@ namespace MyDefence
 {
     public class Enemy : MonoBehaviour
     {
-        // 1-1) Enemy에게 체력(hp) : 100 초기화
         public int hp = 100;
         private int killReward = 50;
 
+        [Header("--- 이동 속도 설정 ---")]
+        public float baseSpeed = 5f;        // 🏃 원래 적의 기본 속도
+        public float currentSpeed;          // 👟 실시간으로 변하는 현재 속도
+
         [Header("--- 사망 이펙트 설정 ---")]
-        // ⭐ 형이 미리 만들어둔 '부서져서 떨어지는 파티클 프리팹'을 담을 바구니!
         public GameObject deathEffectPrefab;
 
-        // 레이저 전용 지속 데미지 버퍼
         private float damageBuffer = 0f;
+        private bool isUnderLaser = false;  // ⚡ 현재 레이저를 맞고 있는 중인가?
+
+        void Start()
+        {
+            // 시작할 때는 현재 속도를 기본 속도로 세팅!
+            currentSpeed = baseSpeed;
+        }
+
+        void Update()
+        {
+            // ❗[참고] 여기에 원래 적이 앞으로 이동하는 로직이 있을 거야.
+            // 이동할 때 반드시 'baseSpeed' 대신 'currentSpeed'를 곱해서 움직이게 해줘!
+            // 예: transform.Translate(Vector3.forward * currentSpeed * Time.deltaTime);
+        }
+
+        // ⭐ 모든 Update가 끝나고 실행되는 LateUpdate에서 레이저 상태를 체크해 복구해줍니다.
+        void LateUpdate()
+        {
+            if (!isUnderLaser)
+            {
+                // 이번 프레임에 레이저를 안 맞았다면 속도를 원래대로 복구!
+                currentSpeed = baseSpeed;
+            }
+
+            // 스위치를 꺼두고, 다음 프레임에 레이저 타워가 다시 켜주길 기다립니다.
+            isUnderLaser = false;
+        }
+
+        // [과제 3번] 레이저 타격하는 동안 Enemy의 속도 40% 감속 함수
+        public void ApplyLaserEffects()
+        {
+            isUnderLaser = true; // 레이저 맞는 중이라고 스위치 ON!
+
+            // 40% 감속이니까 원래 속도의 60%(0.6f)로 만들어버립니다.
+            currentSpeed = baseSpeed * 0.6f;
+        }
 
         // 일반 총알 / 미사일용 피격 함수
         public void TakeDamage(int damage)
         {
             hp -= damage;
-
-            if (hp <= 0)
-            {
-                Die();
-            }
+            if (hp <= 0) Die();
         }
 
-        // 레이저 타워용 지속 데미지 함수 (렉 유발 디버그 로그 완벽 제거!)
+        // 레이저 타워용 지속 데미지 함수
         public void TakeDamageFloat(float damage)
         {
             damageBuffer += damage;
@@ -37,31 +70,21 @@ namespace MyDefence
                 hp -= intDamage;
                 damageBuffer -= intDamage;
 
-                if (hp <= 0)
-                {
-                    Die();
-                }
+                if (hp <= 0) Die();
             }
         }
 
-        // 💀 적이 완전히 죽을 때 실행되는 함수
         void Die()
         {
-            // 1-3) kill 하면 리워드로 50 Gold 지급
             GameData.money += killReward;
             Debug.Log($"적 처치! 50 Gold 획득! 현재 잔액: {GameData.money}");
 
-            // 💥 [과제 조건 적용] 죽는 순간 부서지는 파티클 이펙트 생성!
             if (deathEffectPrefab != null)
             {
-                // 적이 죽은 바로 그 위치(transform.position)에 이펙트를 소환합니다.
                 GameObject effectGO = Instantiate(deathEffectPrefab, transform.position, transform.rotation);
-
-                // 생성된 파티클 이펙트는 2초 뒤에 하이러키 창에서 깔끔하게 자동 삭제! (렉 방지)
                 Destroy(effectGO, 2f);
             }
 
-            // enemy kill (Destroy)
             Destroy(gameObject);
         }
     }
