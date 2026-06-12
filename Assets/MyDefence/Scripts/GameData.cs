@@ -8,7 +8,7 @@ namespace MyDefence
     {
         public static int money = 1000;       // 소지금
         public static int lives = 10;         // [과제 0] 초기 라이프 10개
-        public static int roundsSurvived = 25; // [과제 1] UI 연결용 라운드 카운트 (예시값)
+        public static int roundsSurvived = 0; // [과제 1] UI 연결용 라운드 카운트 (예시값)
     }
    
 }

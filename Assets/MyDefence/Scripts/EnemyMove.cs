@@ -40,7 +40,10 @@ namespace MyDefence
 
                 if (distance < 0.2f)
                 {
-                    Debug.Log("종점 도착!!!!");
+                    // [추가] 도착 시 라이프 1 감소
+                    GameData.lives--;
+
+                    Debug.Log("종점 도착! 라이프가 깎였습니다.");
                     Destroy(gameObject);
                 }
                 else

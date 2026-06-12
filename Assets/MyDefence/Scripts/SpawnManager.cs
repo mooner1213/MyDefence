@@ -49,6 +49,8 @@ namespace MyDefence
                 }
 
                 // 3. 다음 웨이브 준비
+
+                MyDefence.GameData.roundsSurvived = waveCount;
                 waveCount++;
 
                 // 적들이 다 나오는 걸 보고 다음 카운트다운으로 넘어가기 위해 1초 대기
