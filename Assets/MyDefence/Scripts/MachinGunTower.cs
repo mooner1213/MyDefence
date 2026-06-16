@@ -63,9 +63,11 @@ namespace MyDefence
             if (muzzleFlash != null) // 이펙트가 연결되어 있다면?
             {
                 // 파티클 시스템이 재생 중이라면 멈추고, 처음부터 다시 팍 재생합니다.
+                Debug.Log("muzzleFlash 재생!");
                 muzzleFlash.Stop();
                 muzzleFlash.Play();
             }
+            else Debug.Log("muzzleFlash가 null이야!");
 
             // 과제 2-3번 조건: Instantiate를 이용해 총구(firePoint)의 위치와 회전값으로 총알 복사본을 생성합니다!
             GameObject bulletGO = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);

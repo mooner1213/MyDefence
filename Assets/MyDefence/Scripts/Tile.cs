@@ -1,108 +1,178 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems; // 마우스 이벤트 및 UI 감지 기능 사용
+using UnityEngine.EventSystems;
 
 namespace MyDefence
 {
-    // IPointerEnterHandler = 마우스가 올라왔을 때 감지
-    // IPointerExitHandler = 마우스가 나갔을 때 감지
-    // IPointerClickHandler = 마우스 클릭했을 때 감지
     public class Tile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
         #region variables
-        private Color StartColor;   // 타일의 원래 색깔 기억
-        public Color EndColor = Color.green;    // 마우스가 올라왔을 때 바뀔 색깔
-        private Renderer rend;  // 타일의 색을 실제로 바꿔줄 컴포넌트
-        private bool isOccupied = false;    // 타일에 터렛이 설치가 되어있는지에 대한 여부
-        private GameObject MyTurret;    // 타일에 실제로 설치된 터렛을 담두는 바구니
+        private Color StartColor;
+        public Color EndColor = Color.green;
+        private Renderer rend;
+        private bool isOccupied = false;
+        private GameObject MyTurret;
+
+        public TowerBlueprint towerBlueprint;
+        private bool isUpgraded = false;
+
         private PointerEventData _eventData;
         private List<RaycastResult> _raycastResults = new List<RaycastResult>();
+
+        public TileUI tileUI;
+
+        [Header("--- 이펙트 설정 ---")]
+        public GameObject buildEffectPrefab;
+        public GameObject sellEffectPrefab;     // GoldPopup 스크립트가 붙어있는 프리팹
         #endregion
 
         #region Unity Event Method
         void Start()
         {
-            rend = GetComponent<Renderer>();    // 이 오브젝트의 랜더러 컴포넌트를 꺼내와서 rend에 저장
-            StartColor = rend.material.color;   // 현재 색을 StartColor에 저장
+            rend = GetComponent<Renderer>();
+            StartColor = rend.material.color;
         }
 
         private bool IsPointerOverUI()
         {
-            // 매번 new하지 않고 기존에 만들어둔 바구니 알맹이만 초기화해서 재사용합니다.
             if (_eventData == null) _eventData = new PointerEventData(EventSystem.current);
             _eventData.position = Input.mousePosition;
 
-            _raycastResults.Clear(); // 예전 영수증은 싹 지우기
+            _raycastResults.Clear();
             EventSystem.current.RaycastAll(_eventData, _raycastResults);
 
-            // 가급적 foreach 대신 메모리를 안 먹는 for문을 씁니다.
             for (int i = 0; i < _raycastResults.Count; i++)
             {
                 if (_raycastResults[i].gameObject.layer == LayerMask.NameToLayer("UI"))
                     return true;
             }
-
             return false;
         }
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            // [3번 과제] UI 위에 있으면 색 변경 안 함
             if (IsPointerOverUI()) return;
-
             if (!BuildManager.Instance.HasSelectedTower()) return;
-
             rend.material.color = EndColor;
         }
 
-        public void OnPointerExit(PointerEventData eventData)   // 마우스가 타일에서 나갔을 때 실행
+        public void OnPointerExit(PointerEventData eventData)
         {
-            rend.material.color = StartColor;   // 기존색을 저장해뒀던 StartColor로 다시 적용
+            rend.material.color = StartColor;
         }
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            // [3번 과제] UI 위에 있으면 타일 클릭 무시
             if (IsPointerOverUI()) return;
 
-            if (isOccupied) return;
-
-            if (!BuildManager.Instance.HasSelectedTower())
+            if (isOccupied)
             {
-                Debug.Log("타워를 설치하지 못했습니다.!!");
+                BuildManager.Instance.SelectTile(this);
                 return;
             }
 
-            // -------------------------------------------------------------
-            // 💰 [새로 추가된 돈 계산 및 제한 로직]
-            // -------------------------------------------------------------
-            // 1. 빌드 매니저에게 지금 설치할 타워의 가격을 물어봅니다.
-            int towerCost = BuildManager.Instance.GetSelectedTowerCost();
-
-            // 2. 과제 5번: 소지금(GameData.money)이 타워 가격보다 부족하면 건설 차단!
-            if (GameData.money < towerCost)
+            if (!BuildManager.Instance.HasSelectedTower())
             {
-                Debug.Log("돈이 부족합니다"); // 과제 요구사항 로그
-                return; // ❌ 건설하지 않고 여기서 함수를 즉시 종료합니다.
+                Debug.Log("타워를 선택하지 않아 설치할 수 없습니다.!!");
+                return;
             }
 
-            // 3. 과제 4번: 돈이 충분하다면 소지금에서 가격만큼 차감합니다.
+            int towerCost = BuildManager.Instance.GetSelectedTowerCost();
+            if (GameData.money < towerCost)
+            {
+                Debug.Log("돈이 부족합니다");
+                return;
+            }
+
             GameData.money -= towerCost;
-            Debug.Log("건설하고 남은돈 : " + GameData.money); // 과제 요구사항 로그
-            // -------------------------------------------------------------
+            Debug.Log("건설하고 남은돈 : " + GameData.money);
 
-            Debug.Log("마우스 클릭 - 여기에 터렛 설치");    // 콘솔창에 클릭할때마다 로그 출력
-
-            // BuildManager에서 현재 유저가 선택한 타워 프리팹을 가져옵니다.
             GameObject towerPrefab = BuildManager.Instance.GetTowerToBuild();
-
-            // 가져온 타워를 내 위치에 생성하고 MyTurret 변수에 담아 기억합니다.
             MyTurret = Instantiate(towerPrefab, transform.position, Quaternion.identity);
 
-            isOccupied = true;
+            if (buildEffectPrefab != null)
+            {
+                GameObject fx = Instantiate(buildEffectPrefab, transform.position + Vector3.up * 0.5f, Quaternion.identity);
+                Destroy(fx, 2f);
+            }
 
-            // 타워가 설치되면 하이라이트 색상을 풀고 원래 색상으로 돌려줍니다.
+            towerBlueprint = BuildManager.Instance.GetSelectedBlueprint();
+            isUpgraded = false;
+            isOccupied = true;
             rend.material.color = StartColor;
+        }
+
+        public bool IsUpgraded() => isUpgraded;
+
+        public int GetSellPrice()
+        {
+            if (towerBlueprint == null) return 0;
+            int sellPrice = towerBlueprint.cost / 2;
+            if (isUpgraded) sellPrice += towerBlueprint.upgradeCost / 2;
+            return sellPrice;
+        }
+
+        public void UpgradeTower()
+        {
+            if (isUpgraded)
+            {
+                Debug.LogWarning("이 타일의 타워는 이미 업그레이드가 완료되었습니다!");
+                return;
+            }
+
+            if (!BuildManager.Instance.HasUpgradeCost())
+            {
+                Debug.Log("업그레이드 건설 비용이 부족합니다.");
+                return;
+            }
+
+            int upgradeCost = BuildManager.Instance.GetUpgradeCost();
+            GameData.money -= upgradeCost;
+
+            Destroy(MyTurret);
+            GameObject upgradePrefab = towerBlueprint.upgradePrefab;
+            MyTurret = Instantiate(upgradePrefab, transform.position, Quaternion.identity);
+
+            if (buildEffectPrefab != null)
+            {
+                GameObject fx = Instantiate(buildEffectPrefab, transform.position + Vector3.up * 0.5f, Quaternion.identity);
+                Destroy(fx, 2f);
+            }
+
+            isUpgraded = true;
+            Debug.Log("업그레이드 완료! 남은 돈: " + GameData.money);
+            BuildManager.Instance.OnTileUpgraded();
+        }
+
+        public void SellTower()
+        {
+            if (MyTurret == null) return;
+
+            int sellPrice = GetSellPrice();
+            GameData.money += sellPrice;
+            Debug.Log($"타워 판매! +{sellPrice} Gold. 현재 잔액: {GameData.money}");
+
+            // 💰 판매된 타워 바로 위에 골드 팝업 생성 후 가격 세팅
+            if (sellEffectPrefab != null)
+            {
+                // MyTurret 위치 기준으로 살짝 위에 생성
+                Vector3 popupPos = MyTurret.transform.position + Vector3.up * 1.5f;
+                GameObject fx = Instantiate(sellEffectPrefab, popupPos, Quaternion.identity);
+
+                // GoldPopup 스크립트에 판매 가격 전달 → "+150G" 텍스트 표시
+                GoldPopup popup = fx.GetComponent<GoldPopup>();
+                if (popup != null)
+                    popup.SetAmount(sellPrice);
+
+                Destroy(fx, 2f);
+            }
+
+            Destroy(MyTurret);
+            isOccupied = false;
+            isUpgraded = false;
+            towerBlueprint = null;
+
+            BuildManager.Instance.DeSelectTile();
         }
         #endregion
     }

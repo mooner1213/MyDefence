@@ -12,10 +12,10 @@ namespace MyDefence
         public Transform firePoint;
 
         [Header("--- [과제 1번] 레이저 이펙트 및 조명 ---")]
-        public GameObject impactEffectPrefab; // 💥 레이저 타격 파티클 프리팹 (타격 지점에 생성)
+        //public GameObject impactEffectPrefab; // 💥 레이저 타격 파티클 프리팹 (타격 지점에 생성)
         public Light laserLight;              // 💡 레이저용 조명 (타워 근처나 타격점에 불빛 주기)
 
-        private GameObject spawnedImpactEffect; // 실시간으로 켜고 끌 파티클 오브젝트 바구니
+        public GameObject spawnedImpactEffect; // 실시간으로 켜고 끌 파티클 오브젝트 바구니
         private Transform target = null;
 
         [Header("--- 회전 및 조준 설정 ---")]
@@ -34,11 +34,11 @@ namespace MyDefence
             InvokeRepeating("UpdateTarget", 0f, 0.5f);
 
             // 시작할 때 타격 이펙트 프리팹이 있다면 미리 하나 복사해서 꺼두기 (실시간 생성/삭제 렉 방지!)
-            if (impactEffectPrefab != null)
+            /*if (impactEffectPrefab != null)
             {
                 spawnedImpactEffect = Instantiate(impactEffectPrefab);
                 spawnedImpactEffect.SetActive(false);
-            }
+            }*/
 
             // 조명도 처음엔 꺼둡니다.
             if (laserLight != null) laserLight.enabled = false;
@@ -78,6 +78,7 @@ namespace MyDefence
                 Vector3 lookDir = firePoint.position - target.position;
                 if (lookDir != Vector3.zero)
                 {
+                    spawnedImpactEffect.transform.position += lookDir.normalized / 2;
                     spawnedImpactEffect.transform.rotation = Quaternion.LookRotation(lookDir);
                 }
             }

@@ -126,4 +126,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Field
   EndColor: {r: 0.36320752, g: 1, b: 0.36320752, a: 1}
-  turretPrefab: {fileID: 8466087912286344130, guid: af54a06ffe503b1408121ccaa9246ac6, type: 3}
+  towerBlueprint:
+    prefab: {fileID: 0}
+    cost: 0
+    upgradePrefab: {fileID: 0}
+    upgradeCost: 0
+  tileUI: {fileID: 0}
+  buildEffectPrefab: {fileID: 4700596372371171418, guid: d7fd90b9780695f40b3b083beced88e0, type: 3}
+  sellEffectPrefab: {fileID: 3458450242400079349, guid: b9d735835ae358c419299f4d456f1e27, type: 3}

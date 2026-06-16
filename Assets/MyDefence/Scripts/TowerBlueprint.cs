@@ -10,4 +10,9 @@ public class TowerBlueprint
 
     // 이 타워를 지을 때 필요한 골드(가격)를 저장하는 변수야.
     public int cost;
+
+    // 1차 업그레이드
+    public GameObject upgradePrefab; // 타워 업그레이드에 필요한 프리펩 오브젝트
+    public int upgradeCost; // 타워 업그레이드 비용
+
 }
